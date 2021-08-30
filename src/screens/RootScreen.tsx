@@ -8,7 +8,7 @@ import {SignUpScreen} from './SignUpScreen';
 const Stack = createStackNavigator();
 
 export const RootStackScreen = () => (
-    <Stack.Navigator>
+    <Stack.Navigator >
         <Stack.Screen name="SignIn" component={SignInScreen}/>
         <Stack.Screen name="SignUp" component={SignUpScreen}/>
     </Stack.Navigator>

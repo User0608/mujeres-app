@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer, useEffect, useRef } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext } from './src/helpers/contextApp';
 import { RootStackScreen } from './src/screens/RootScreen';
@@ -11,7 +11,6 @@ import { HomeStackScreen } from './src/screens/HomeStackScreen';
 export const App = () => {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
   const context = userAuthContext(dispatch);
-
   useEffect(() => {
     setTimeout(async () => {
       let token: string = ''

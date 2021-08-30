@@ -1,4 +1,4 @@
-import  React,{ Dispatch, useMemo } from "react";
+import React, { Dispatch, useMemo, useRef, useEffect } from "react";
 import { ActionLoginReducer } from '../helpers/loginReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,11 +24,6 @@ export const userAuthContext = (dispatch: Dispatch<ActionLoginReducer>) => {
         },
 
         signUp: () => {
-            // setUserToken('fgkj');
-            // setIsLoading(false);
-        },
-        toggleTheme: () => {
-            //setIsDarkTheme(isDarkTheme => !isDarkTheme);
         }
     }), []);
     return context;

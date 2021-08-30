@@ -15,8 +15,8 @@ export const SignInScreen = () => {
     const navigation = useNavigation<authScreenProp>();
     const context = React.useContext(AuthContext)
     const [datos, setDatos] = useState({
-        username: "",
-        password: ""
+        username: "user002",
+        password: "segura2020"
     })
 
     const handlerChange = (name: string, value: string) => {
@@ -26,6 +26,7 @@ export const SignInScreen = () => {
         })
     }
     const handlerLogin = () => {
+        console.log("Se disparo!@!!!")
         if (datos.username.length == 0 || datos.password.length == 0) {
             Alert.alert('Input Error!', 'Username or password no pueden ser nulos', [
                 { text: 'Okay' }
@@ -36,6 +37,7 @@ export const SignInScreen = () => {
             if (r.code === "OK") {
                 context?.signIn(r.usuario.usuario_id.toString(), r.token);
                 if (!context) console.log("El contexto es null!!!")
+                return
             } else {
                 Alert.alert('Error', r.message, [
                     { text: 'Okay' }

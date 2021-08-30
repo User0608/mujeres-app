@@ -32,6 +32,8 @@ export const loginReducer = (state: StateLoginReducer, action: ActionLoginReduce
     case 'LOGOUT':
       return {
         ...state,
+        username:"",
+        token:"",
         isLoading: false,
       };
     case 'REGISTER':

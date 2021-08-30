@@ -8,8 +8,7 @@ export const SignUpScreen = () => {
     const navigation = useNavigation<authScreenProp>();
     return (
         <View>
-            <Text>Hola bb!! upppp</Text>
-            
+            <Text>Hola bb!! upppp</Text>            
         </View>
     )
 }
