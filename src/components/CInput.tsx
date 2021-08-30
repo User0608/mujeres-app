@@ -11,7 +11,7 @@ interface Props {
     type?: 'text' | 'password' | 'numeric'
 }
 const valid="0123456789"
-export const CInput = ({ style, name, label, type = 'numeric', onChange }: Props) => {
+export const CInput = ({ style, name, label, type = 'text', onChange }: Props) => {
     const [err, setErr] = useState("")
     const [input, setInput] = useState("");
     const check = (text: string) => {

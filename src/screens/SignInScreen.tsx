@@ -1,22 +1,55 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, Image, Alert } from 'react-native';
 import { CInput } from '../components/CInput';
 import { RootStackParamList } from '../helpers/RootStackParams';
 import { CButton } from '../components/CButton';
+import { AuthContext } from '../helpers/contextApp';
+import { useState } from 'react';
+import { postData } from '../service/service';
 
 type authScreenProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 
 export const SignInScreen = () => {
     const navigation = useNavigation<authScreenProp>();
+    const context = React.useContext(AuthContext)
+    const [datos, setDatos] = useState({
+        username: "",
+        password: ""
+    })
 
     const handlerChange = (name: string, value: string) => {
-        console.log(name, ":", value)
+        setDatos({
+            ...datos,
+            [name]: value
+        })
     }
     const handlerLogin = () => {
+        if (datos.username.length == 0 || datos.password.length == 0) {
+            Alert.alert('Input Error!', 'Username or password no pueden ser nulos', [
+                { text: 'Okay' }
+            ]);
+            return;
+        }
+        postData("login", { username: datos.username, password: datos.password }).then(r => {
+            if (r.code === "OK") {
+                context?.signIn(r.usuario.usuario_id.toString(), r.token);
+                if (!context) console.log("El contexto es null!!!")
+            } else {
+                Alert.alert('Error', r.message, [
+                    { text: 'Okay' }
+                ]);
+            }
+        }
+        ).catch(() => {
+            Alert.alert('Error', 'No se pudo conectar a internet', [
+                { text: 'Okay' }
+            ]);
+            return
+        })
+    }
 
-    }    
     return (
         <View style={styles.container}>
             <View style={styles.loginBox}>

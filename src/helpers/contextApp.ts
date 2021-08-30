@@ -4,7 +4,6 @@ interface AuthContextValue {
     signIn: (username: string, token: string) => Promise<void>;
     signOut: () => Promise<void>;
     signUp: () => void;
-    toggleTheme: () => void;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
