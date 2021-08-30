@@ -1,13 +1,22 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from './HomeScreen';
-const Stack = createStackNavigator();
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+const Tab = createMaterialBottomTabNavigator();
 
 export const HomeStackScreen = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+
+        <Tab.Navigator>
+
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    tabBarLabel: 'Home',                   
+                }}
+            />
+
+        </Tab.Navigator>
     )
 }
