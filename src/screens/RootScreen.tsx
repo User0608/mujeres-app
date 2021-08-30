@@ -1,18 +1,16 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignInScreen } from './SignInScreen';
 
-const RootStack = createStackNavigator();
-const RootScreen = () => {
-    return (
-        // headerMode='none'
-        <RootStack.Navigator>
-            <RootStack.Screen name="SignInScreen" component={SignInScreen} />
-            {/* <RootStack.Screen name="SplashScreen" component={SplashScreen} />
-            <RootStack.Screen name="SignUpScreen" component={SignUpScreen} /> */}
-        </RootStack.Navigator>
-    )
-}
+import {SignInScreen} from './SignInScreen';
+import {SignUpScreen} from './SignUpScreen';
 
-export default RootScreen
+const Stack = createStackNavigator();
+
+export const RootStackScreen = () => (
+    <Stack.Navigator>
+        <Stack.Screen name="SignIn" component={SignInScreen}/>
+        <Stack.Screen name="SignUp" component={SignUpScreen}/>
+    </Stack.Navigator>
+);
+
