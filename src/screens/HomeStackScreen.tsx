@@ -6,11 +6,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { PerfilScreen } from './PerfilScreen';
 import { CameraScreen } from './CameraScreen';
-const Tab = createMaterialBottomTabNavigator();
 
-export const HomeStackScreen = () => {    
+const Tab = createMaterialBottomTabNavigator();
+export const HomeStackScreen = () => {   
     return (
-        <Tab.Navigator initialRouteName="Home" >
+        <Tab.Navigator>
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}

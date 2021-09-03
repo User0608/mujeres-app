@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
-import { View, StyleSheet, Image, Alert } from 'react-native';
+import { View, StyleSheet, Image, Alert, Button } from 'react-native';
 import { CInput } from '../components/CInput';
 import { RootStackParamList } from '../helpers/RootStackParams';
 import { CButton } from '../components/CButton';
@@ -14,6 +14,7 @@ type authScreenProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 export const SignInScreen = () => {
     const navigation = useNavigation<authScreenProp>();
     const context = React.useContext(AuthContext)
+
     const [datos, setDatos] = useState({
         username: "user002",
         password: "segura2020"
@@ -26,7 +27,6 @@ export const SignInScreen = () => {
         })
     }
     const handlerLogin = () => {
-        console.log("Se disparo!@!!!")
         if (datos.username.length == 0 || datos.password.length == 0) {
             Alert.alert('Input Error!', 'Username or password no pueden ser nulos', [
                 { text: 'Okay' }
@@ -70,10 +70,8 @@ export const SignInScreen = () => {
                     label="Password"
                     onChange={handlerChange}
                 />
-
-                <CButton
-                    style={styles.loginButton}
-                    text="Iniciar"
+                <Button
+                    title="Hola"
                     onPress={handlerLogin}
                 />
 
@@ -83,11 +81,9 @@ export const SignInScreen = () => {
                 text="Registrarse"
                 onPress={() => { navigation.navigate('SignUp') }}
             />
-
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -96,9 +92,11 @@ const styles = StyleSheet.create({
     },
     loginBox: {
         justifyContent: 'center',
+        marginTop: 30,
         padding: 20,
-        width: 440,
-        height: 450,
+        maxWidth: 440,
+        maxHeight: 450,
+        minWidth: 330,
         borderRadius: 20,
         borderWidth: 1,
         bottom: 100,
@@ -118,11 +116,5 @@ const styles = StyleSheet.create({
     loginButton: {
         position: 'absolute',
         backgroundColor: "#ffb04c",
-        bottom: -30,
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 300,
-        alignSelf: 'center'
     }
 });

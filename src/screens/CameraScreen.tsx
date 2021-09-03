@@ -1,23 +1,67 @@
 import React, { useRef } from 'react';
+import { useState } from 'react';
 import {
     View,
-    Text,
+    ToastAndroid,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-// import { Dirs, FileSystem } from 'react-native-file-access'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export const CameraScreen = () => {
     const cameraRef = useRef<any>()
+    const [recording, setRecording] = useState(false);
+
     const takePicture = async () => {
         if (cameraRef) {
             const options = { quality: 0.5, base64: true };
-            const data = await cameraRef.current.takePictureAsync(options);
-            console.log(data.uri);
-
+            try {
+                await cameraRef.current.takePictureAsync(options);
+                ToastAndroid.show("Imagen guardada", ToastAndroid.SHORT)
+            } catch (e) {
+                Alert.alert('Error', "No se pudo guardar el archivo", [
+                    { text: 'Okay' }
+                ]);
+            }
         }
     };
+    const recordVideo = async () => {
+        if (cameraRef.current && !cameraRef.current.state.recording) {
+            cameraRef.current.state.recording = true
+            const options = {
+                quality: '480p',
+                maxDuration: 300,
+                maxFileSize: 100 * 1024 * 1024
+            }
+            cameraRef.current.setState({ recording: true, elapsed: -1 }, async () => {
+                let result = null
+                try {
+                    setRecording(true)
+                    result = await cameraRef.current.recordAsync(options)
+                } catch (err) {
+                    console.warn("VIDEO RECORD FAIL", err.message, err);
+                    Alert.alert("Error", "No se pudo guardar el video" + err.message);
+                    setRecording(false)
+                }
+                if (result) {
+                    ToastAndroid.show("Video guardado!", ToastAndroid.SHORT)
+                }
+                setTimeout(() => {
+                    cameraRef.current.setState({ recording: false });
+                    console.log("Si se ejecuto")
+                }, 500)
+            })
+        }
+    }
+    const stopRecording = async () => {
+        if (cameraRef.current && cameraRef.current.state.recording) {
+            cameraRef.current.stopRecording();
+            setRecording(false)
+        }
+    }
     return (
         <View style={styles.container}>
             <RNCamera
@@ -38,10 +82,37 @@ export const CameraScreen = () => {
                     buttonNegative: 'Cancel',
                 }}
             />
-            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={takePicture} style={styles.capture}>
-                    <Text style={{ fontSize: 14 }}> SNAP </Text>
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity
+                    onPress={takePicture}
+                >
+                    <MaterialCommunityIcons
+                        name="camera"
+                        color="white"
+                        size={50}
+                    />
                 </TouchableOpacity>
+                {!recording?
+                    <TouchableOpacity
+                        onPress={recordVideo}
+                    >
+                        <MaterialCommunityIcons
+                            name="record"
+                            color="red"
+                            size={60}
+                        />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                        onPress={stopRecording}
+                    >
+                        <MaterialCommunityIcons
+                            name="stop"
+                            color="red"
+                            size={60}
+                        />
+                    </TouchableOpacity>
+                }
             </View>
         </View>
     )
@@ -57,13 +128,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
+    buttonsContainer: {
+        position: 'absolute',
+        bottom: 50,
+        width: "100%",
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
     },
+
 });

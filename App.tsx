@@ -10,7 +10,7 @@ import { HomeStackScreen } from './src/screens/HomeStackScreen';
 
 export const App = () => {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
-  const context = userAuthContext(dispatch);
+  const context = userAuthContext(dispatch);  
   useEffect(() => {
     setTimeout(async () => {
       let token: string = ''
@@ -18,22 +18,20 @@ export const App = () => {
       try {
         let t = await AsyncStorage.getItem('@token');
         token = t ? t : ""
-        let un = await AsyncStorage.getItem('@token');
+        let un = await AsyncStorage.getItem('@username');
         username = un ? un : ""
       } catch (e) {
         console.log(e);
       }
-      dispatch({ type: 'RETRIEVE_TOKEN', token, username });
-    }, 10);
+      dispatch({ type: 'RETRIEVE_TOKEN', token, username });      
+    }, 1000);
   }, []);
-
 
   return (
     <AuthContext.Provider value={context}>
       <NavigationContainer>
         {loginState.token === "" ?
-          <RootStackScreen />
-          :
+          <RootStackScreen /> :
           <HomeStackScreen />
         }
       </NavigationContainer>
