@@ -2,7 +2,7 @@ import React, { Dispatch, useMemo, useRef, useEffect } from "react";
 import { ActionLoginReducer } from '../helpers/loginReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const userAuthContext = (dispatch: Dispatch<ActionLoginReducer>) => {
+export const useAuthContext = (dispatch: Dispatch<ActionLoginReducer>) => {
     const context = useMemo(() => ({
         signIn: async (username: string, token: string) => {
             try {
@@ -22,9 +22,8 @@ export const userAuthContext = (dispatch: Dispatch<ActionLoginReducer>) => {
             }
             dispatch({ type: 'LOGOUT', username: "", token: "" });
         },
-
         signUp: () => {
-        }
+        },
     }), []);
     return context;
 }

@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native'
 
 export const tStyles = StyleSheet.create(
     {
-        label:{
+        abel:{
             left:20,
             fontSize:16,
             marginBottom:4,
@@ -14,7 +14,8 @@ export const tStyles = StyleSheet.create(
             color:'red',
             paddingRight:20,
             fontSize:12,
-            textAlign:'right'
+            textAlign:'right',            
+
         },
         sm:{
 

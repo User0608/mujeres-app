@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { SignInScreen } from './SignInScreen';
 import { SignUpScreen } from './SignUpScreen';

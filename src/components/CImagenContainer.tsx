@@ -9,7 +9,6 @@ interface Props {
     onUnSelect: (file: string) => void
 }
 export const CImagenContainer = ({ imagenes, onSelect, onUnSelect }: Props) => {
-    console.log(">>>>>>>>>>>>", imagenes.length)
     return (
         <View >
             <ScrollView
@@ -32,13 +31,12 @@ export const CImagenContainer = ({ imagenes, onSelect, onUnSelect }: Props) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: {        
         height: 250,
-        backgroundColor: "red"
+        marginVertical:10,
     },
     imagen: {
         width: 150,
         marginHorizontal: 10,
-        backgroundColor: "yellow"
     }
 });

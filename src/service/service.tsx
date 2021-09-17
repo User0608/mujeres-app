@@ -1,4 +1,5 @@
-const API_URL = "http://192.16.0.101:91/v1"
+// const API_URL = "http://192.16.0.2:91/v1"
+const API_URL = "http://ec2-18-217-113-62.us-east-2.compute.amazonaws.com:91/v1"
 
 
 const normalizePath = (path: string) => {
@@ -31,6 +32,7 @@ const getFetchData = async (path = "", token: string) => {
 }
 const postFetchData = async (path = "", data: any, token: string) => {
     path = normalizePath(path)
+    console.log(`${API_URL}${path}`)
     const response = await fetch(`${API_URL}${path}`, {
         method: 'POST',
         headers: {

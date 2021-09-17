@@ -1,14 +1,16 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { HomeScreen } from './HomeScreen';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { PerfilScreen } from './PerfilScreen';
 import { CameraScreen } from './CameraScreen';
+import { AlertaRootScreen } from './AlertaRootScreen';
+
 
 const Tab = createMaterialBottomTabNavigator();
-export const HomeStackScreen = () => {   
+export const HomeStackScreen = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -16,7 +18,6 @@ export const HomeStackScreen = () => {
                 component={HomeScreen}
                 options={{
                     tabBarLabel: 'Home',
-                    tabBarColor: '#009387',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
                             name="home"
@@ -41,6 +42,20 @@ export const HomeStackScreen = () => {
                 }}
             />
             <Tab.Screen
+                name="Alerta"
+                component={AlertaRootScreen}
+                options={{
+                    tabBarLabel: 'Alerta',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                            name="alert"
+                            color="yellow"
+                            size={26}
+                        />
+                    )
+                }}
+            />
+            <Tab.Screen                                 
                 name="Perfil"
                 component={PerfilScreen}
                 options={{
